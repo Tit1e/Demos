@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>149-dispatchEvent</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  </head>
+  <body>
+    <div id="app">
+      <div class="box">
+        <p>1. 先在 input 框中输入一些文字，会发现通过 v-model 绑定的 text 值会一起改变。</p>
+        <p>2. 再点击按钮，通过 js 改变 input 的值，会发现 input 的 value 改变了，但 text 并无变化。</p>
+        <p>3. 这时再任意改变一下输入框中的内容，会发现绑定又回来了</p>
+      </div>
+      <div class="box">
+        <div>
+          value: {{value}}
+        </div>
+        <div>
+          text（与 v-model）: {{text}}
+        </div>
+        <div>
+          <input ref="input" type="text" v-model="text">
+          <el-input v-model="text" id="elInput" placeholder="el-input" size="mini" style="width: 200px;"></el-input>
+          <button @click="changeValue">改变 value</button>
+          <button @click="changeAndDispatch">改变 value 并触发 input 事件</button>
+        </div>
+      </div>
+      <div class="box">
+        <pre>
+// js 源码
+new Vue({
+  el: '#app',
+  data() {
+    return {
+      text: '',
+      value: ''
+    }
+  },
+  methods: {
+    changeValue() {
+      this.$refs.input.value = '新的值'
+      // 点击后将 input 的 value 值赋值给 this.value
+      this.value = this.$refs.input.value
+    }
+  },
+})
+        </pre>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="./js/index.js"></script>
+  </body>
+  </html>
