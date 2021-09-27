@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>backdrop-filter</title>
+    <link rel="stylesheet" href="./css/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  </head>
+
+  <body>
+    <div id="app" :style="`--blur: blur(${blur}px)`">
+      <el-tabs v-model="active">
+        <el-tab-pane label="filter" name="1">
+          <el-form label-width="80px" :inline="false" size="mini">
+            <el-form-item label="blur 值">
+              <el-slider v-model="blur" :min="0" :max="100"></el-slider>
+            </el-form-item>
+          </el-form>
+          <div class="box-wrap">
+            <div class="box filter-blur"></div>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="backdrop-filter" name="2">
+          <div class="box-wrap relative">
+            <div class="box"></div>
+            <div
+              class="drag"
+              :style="style"
+              @dragstart.stop="onDragstart"
+              @drag.stop="onDrag"
+              @dragend.stop="onDragend"
+              draggable
+            ></div>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="卡顿演示" name="3">
+          <el-form label-width="80px" :inline="false" size="mini">
+            <el-form-item label="li 数量">
+              <el-slider v-model="count" :min="0" :max="100"></el-slider>
+            </el-form-item>
+            <el-form-item label="li 高度">
+              <el-slider v-model="height" :min="0" :max="100"></el-slider>
+            </el-form-item>
+            <el-form-item label="blur 值">
+              <el-slider v-model="blur" :min="0" :max="100"></el-slider>
+            </el-form-item>
+          </el-form>
+          <el-button type="primary" size="mini" @click="open"
+            >显示弹窗</el-button
+          >
+          <el-button type="primary" size="mini" @click="showBlur = !showBlur"
+            >{{showBlur? '不使用': '使用'}} backdrop-filter</el-button
+          >
+          <ul>
+            <li
+              v-for="i in count"
+              :key="i"
+              :style="{height: height + 'px'}"
+              :class="{filter: showBlur}"
+            >
+              <span>{{i}}</span>
+            </li>
+          </ul>
+        </el-tab-pane>
+      </el-tabs>
+    </div>
+    <script src="./js/index.js"></script>
+  </body>
+</html>
