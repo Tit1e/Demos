@@ -2,7 +2,7 @@ new Vue({
   el: '#app',
   data () {
     return {
-      active: '2',
+      active: '1',
       showBlur: false,
       count: 30,
       height: 30,
