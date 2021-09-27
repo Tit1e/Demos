@@ -1,0 +1,41 @@
+.box-wrap {
+  overflow: hidden;
+}
+.box {
+  height: 800px;
+  background-image: url(https://photo-album-1251959693.cos.ap-nanjing.myqcloud.com/photo/b0766c342d5a98a1e99462ac41914992.jpg?gravity/southeast|imageMogr2/thumbnail/!40p/quality/40);
+  background-size: cover;
+}
+.relative {
+  position: relative;
+}
+.drag {
+  position: absolute;
+  height: 200px;
+  width: 200px;
+  backdrop-filter: blur(10px);
+  cursor: move;
+  user-select: none;
+  box-shadow: 0px 0px 16px -2px rgba(0, 0, 0, 0.2);
+}
+ul > li {
+  overflow-y: hidden;
+}
+
+.filter {
+  position: relative;
+  transition: 0.5s;
+}
+.filter::before {
+  content: "";
+  backdrop-filter: var(--blur);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.filter-blur {
+  filter: var(--blur);
+}
