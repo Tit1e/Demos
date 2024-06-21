@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文件替换工具</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* 在这里添加自定义样式，如果需要的话 */
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div class="container mx-auto px-4 py-8">
+    <div class="upload-container bg-white rounded-lg shadow-md p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-bold mb-4">上传HTML文件</h2>
+          <label for="upload-file" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
+            选择文件
+          </label>
+          <input type="file" id="upload-file" class="custom-file-input hidden" accept=".html" onchange="processFile()">
+        </div>
+        <div id="download-section" class="hidden">
+          <a id="download-link" href="#" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">下载文件</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function processFile() {
+      var fileInput = document.getElementById('upload-file');
+      var downloadSection = document.getElementById('download-section');
+      var downloadLink = document.getElementById('download-link');
+
+      if (!fileInput.files.length) {
+        downloadSection.classList.add('hidden'); // 如果没有选择文件，则隐藏下载部分
+        return; // 如果没有选择文件，则不执行任何操作
+      }
+
+      var file = fileInput.files[0];
+      var reader = new FileReader();
+      reader.onload = function(event) {
+        var htmlContent = event.target.result;
+        var newHtmlContent = htmlContent.replace(/標註/g, '标注');
+
+        // 创建下载链接
+        downloadLink.href = 'data:text/html;charset=utf-8,' + encodeURIComponent(newHtmlContent);
+        downloadLink.download = file.name; // 使用原来的文件名
+
+        downloadSection.classList.remove('hidden'); // 显示下载部分
+      };
+      reader.readAsText(file);
+    }
+  </script>
+</body>
+</html>
