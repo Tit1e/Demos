@@ -24,6 +24,7 @@
           <a id="download-link" href="#" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">下载文件</a>
         </div>
       </div>
+      <p id="file-name" class="text-gray-700 mt-4"></p>
     </div>
   </div>
 
@@ -32,9 +33,11 @@
       var fileInput = document.getElementById('upload-file');
       var downloadSection = document.getElementById('download-section');
       var downloadLink = document.getElementById('download-link');
+      var fileName = document.getElementById('file-name');
 
       if (!fileInput.files.length) {
         downloadSection.classList.add('hidden'); // 如果没有选择文件，则隐藏下载部分
+        fileName.textContent = ''; // 清空文件名
         return; // 如果没有选择文件，则不执行任何操作
       }
 
@@ -49,6 +52,7 @@
         downloadLink.download = file.name; // 使用原来的文件名
 
         downloadSection.classList.remove('hidden'); // 显示下载部分
+        fileName.textContent = '上传的文件：' + file.name; // 显示文件名
       };
       reader.readAsText(file);
     }
